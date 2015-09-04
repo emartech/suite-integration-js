@@ -8,22 +8,48 @@ class MessageHandlerAlert extends AbstractMessageHandler {
     return 'alert';
   }
 
-  handleMessage(message) {
-    message.timeout = message.timeout || 5000;
-
-    var $eAlert = $('<div class="e-alert e-alert-fixed"></div>')
-      .append($('<span class="e-alert__message">' + $('<div>' + message.text + '</div>').text() + '</span>'));
+  getClassNames(message) {
+    var classNames = [
+      'e-alert',
+      'e-alert-fixed'
+    ];
 
     if (message.className) {
-      $eAlert.addClass(message.className);
+      classNames.push(message.className);
     }
 
     if (message.icon) {
-      $eAlert.addClass('e-alert-withicon')
-        .prepend($('<span class="e-alert__icon"></span>')
-          .append($('<svg class="e-icon"><use xlink:href="#' + message.icon + '"></use></svg>')));
+      classNames.push('e-alert-withicon');
     }
 
+    return classNames;
+  }
+
+  cleanMessage(text) {
+    return $('<div>' + text + '</div>').text();
+  }
+
+  getHtml(message) {
+    var markup = [
+      '<div class="' + this.getClassNames(message).join(' ') + '">'
+    ];
+
+    if (message.icon) {
+      markup.push('<span class="e-alert__icon">');
+      markup.push('<svg class="e-icon"><use xlink:href="#' + message.icon + '"></use></svg>');
+      markup.push('</span>');
+    }
+
+    markup.push('<span class="e-alert__message">' + this.cleanMessage(message.text) + '</span>');
+    markup.push('<div>');
+
+    return markup.join('\n');
+  }
+
+  handleMessage(message) {
+    message.timeout = message.timeout || 5000;
+
+    var $eAlert = $(this.getHtml(message));
     $('body').append($eAlert);
 
     window.setTimeout(function() {
