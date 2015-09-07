@@ -4,6 +4,7 @@ var gulp = require('gulp');
 var runSequence = require('run-sequence');
 var config = require('./tasks.config');
 var tasks = require('boar-tasks').getTasks(gulp, config);
+var argv = require('yargs').argv;
 
 gulp.task('default', ['start']);
 
@@ -51,8 +52,11 @@ var revision;
 gulp.task('publish', function(cb) {
   runSequence(['publish-init', 'publish-s3', 'publish-redirector'], cb);
 });
-gulp.task('publish-init', function() { revision = Math.round(Date.now() / 1000); });
-gulp.task('publish-s3', function() { return tasks.s3.publish(revision); });
-gulp.task('publish-redirector', function() { return tasks.redirector.save(revision); });
+function generateS3Version() {
+  return Math.round(Date.now() / 1000);
+}
+gulp.task('publish-init', function() { revision = generateS3Version(); });
+gulp.task('publish-s3', function() { return tasks.s3.publish(revision || argv.revision); });
+gulp.task('publish-redirector', function() { return tasks.redirector.save(revision || argv.revision); });
 
 gulp.task('start-fake-server', tasks.server.start);

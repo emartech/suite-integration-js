@@ -8,9 +8,7 @@
       "babelify"
     ]
   },
-  "dependencies": {
-    "boar-tasks": "^2.9.0"
-  },
+  "dependencies": {},
   "devDependencies": {
     "babelify": "^6.3.0",
     "boar-tasks": "^2.9.0",
@@ -19,7 +17,8 @@
     "karma-phantomjs-shim": "^1.1.1",
     "node-static": "^0.7.7",
     "run-sequence": "^1.1.2",
-    "sinon": "^1.16.1"
+    "sinon": "^1.16.1",
+    "yargs": "^3.24.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

@@ -8,6 +8,6 @@ module.exports = {
     }
   },
   s3: {
-    copyPattern: 'dist/assets/**/*'
+    copyPattern: 'dist/**/*'
   }
 };
