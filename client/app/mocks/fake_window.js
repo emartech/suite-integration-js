@@ -5,14 +5,16 @@ var fakeJQuery = require('./fake_jquery');
 
 class FakeWindow {
   constructor() {
+    this.listeners = {};
+
     this.location = {
       pathname: 'mocked',
       reload: sinon.stub()
     };
 
-    this.addEventListener = sinon.stub();
-
-    this.getElementById = sinon.stub().returns('fake_element');
+    this.document = {
+      getElementById: sinon.stub().returns('fake_element')
+    };
 
     this.SUITE = {
       config: {
@@ -21,6 +23,20 @@ class FakeWindow {
     };
 
     this.$ = fakeJQuery.create();
+  }
+
+  addEventListener(type, callback) {
+    if (!this.listeners[type]) {
+      this.listeners[type] = [];
+    }
+
+    this.listeners[type].push((data) => callback(data));
+  }
+
+  trigger(type, data) {
+    if (this.listeners[type]) {
+      this.listeners[type].forEach((cb) => cb(data));
+    }
   }
 
   static create() {

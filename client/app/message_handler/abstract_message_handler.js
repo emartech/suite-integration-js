@@ -12,7 +12,7 @@ class AbstractMessageHandler {
       }
 
       if (message.event === this.MESSAGE_EVENT) {
-        this.handleEvent(message);
+        this.handleMessage(message);
       }
     });
   }
