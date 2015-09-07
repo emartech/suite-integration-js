@@ -48,7 +48,9 @@ gulp.task('package-watch', function() { tasks.package.watch(); });
 gulp.task('deploy', tasks.build.deploy);
 
 var revision;
-gulp.task('publish', ['publish-init', 'publish-s3', 'publish-redirector']);
+gulp.task('publish', function(cb) {
+  runSequence(['publish-init', 'publish-s3', 'publish-redirector'], cb);
+});
 gulp.task('publish-init', function() { revision = Math.round(Date.now() / 1000); });
 gulp.task('publish-s3', function() { return tasks.s3.publish(revision); });
 gulp.task('publish-redirector', function() { return tasks.redirector.save(revision); });
