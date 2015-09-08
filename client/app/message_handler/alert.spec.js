@@ -109,8 +109,8 @@ describe('Alert Handler', function() {
 
     testCases.forEach(function(test) {
       it(test.name, function() {
-        var classNames = messageHandler.getHtml(test.data);
-        expect(classNames).to.have.string(test.expected);
+        var html = messageHandler.getHtml(test.data);
+        expect(html).to.have.string(test.expected);
       });
     });
   });
