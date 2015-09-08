@@ -13,7 +13,7 @@ class MessageHandlerResize extends AbstractMessageHandler {
       throw new Error('Message source is unknown');
     }
 
-    return this.window.document.getElementById('#integration-' + source.integration_instance_id);
+    return this.window.document.getElementById('integration-' + source.integration_instance_id);
   }
 
   handleMessage(message) {
