@@ -58,7 +58,7 @@ class MessageHandlerNavigate extends AbstractMessageHandler {
       }
     }
 
-    this.window.location.pathname = pathname;
+    this.window.location.href = pathname;
   }
 
   static create(global) {

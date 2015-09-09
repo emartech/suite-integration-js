@@ -24,7 +24,7 @@ describe('Navigate Handler', function() {
       }
     });
 
-    expect(fakeWindow.location.pathname).to.eql([
+    expect(fakeWindow.location.href).to.eql([
       'repmanager.php?session_id=SESSIONID',
       'changed=0',
       'action=analysis',
@@ -51,7 +51,7 @@ describe('Navigate Handler', function() {
       }
     });
 
-    expect(fakeWindow.location.pathname).to.eql('campaignmanager.php?session_id=SESSIONID&action=list');
+    expect(fakeWindow.location.href).to.eql('campaignmanager.php?session_id=SESSIONID&action=list');
   });
 
   it('should throw 404 when calling getUrlByPathname with invalid pathname', function() {
