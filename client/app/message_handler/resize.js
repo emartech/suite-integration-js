@@ -8,17 +8,9 @@ class MessageHandlerResize extends AbstractMessageHandler {
     return 'resize';
   }
 
-  getIntegrationIframe(source) {
-    if (!source || !source.integration_instance_id) {
-      throw new Error('Message source is unknown');
-    }
-
-    return this.window.document.getElementById('integration-' + source.integration_instance_id);
-  }
-
   handleMessage(message) {
     var height = parseInt(message.height, 10);
-    var $iframe = $(this.getIntegrationIframe(message.source));
+    var $iframe = $(this.getIntegrationIframe(message.source.integration_instance_id));
 
     if (height) {
       $iframe

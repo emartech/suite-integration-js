@@ -16,9 +16,7 @@ describe('Resize Handler', function() {
   });
 
   it('should call window.document.getElementById when calling getIntegrationIframe with valid source', function() {
-    messageHandler.getIntegrationIframe({
-      integration_instance_id: integrationInstanceId
-    });
+    messageHandler.getIntegrationIframe(integrationInstanceId);
     expect(fakeWindow.document.getElementById).to.have.been.calledWith('integration-' + integrationInstanceId);
   });
 
@@ -27,18 +25,6 @@ describe('Resize Handler', function() {
       integration_instance_id: integrationInstanceId
     });
     expect(element).to.eql('fake_element');
-  });
-
-  it('should throw exception when calling getIntegrationIframe with invalid source', function() {
-    var exceptionThrown;
-
-    try {
-      messageHandler.getIntegrationIframe('invalid_source');
-    } catch (e) {
-      exceptionThrown = e;
-    }
-
-    expect(exceptionThrown.message).to.eql('Message source is unknown');
   });
 
 });

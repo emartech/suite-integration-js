@@ -17,6 +17,10 @@ class AbstractMessageHandler {
     });
   }
 
+  getIntegrationIframe(integrationInstanceId) {
+    return this.window.document.getElementById('integration-' + integrationInstanceId);
+  }
+
 }
 
 module.exports = AbstractMessageHandler;
