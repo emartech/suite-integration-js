@@ -18,7 +18,7 @@ __General message format__
 __Fields__
 
 |Field|Role|Mandatory|
-|-|-|-|
+|-----|----|---------|
 |event|Name of the handler to pass the message to.|YES|
 |some_key|Arbitrary data the handler needs to work properly.|
 |source|This is a signature marking where the message came from. Every integration has an ID (eg. content-editor) and every integration iframe instance has an instance ID (a sufficiently large random number, actually).     Though not all message handlers do rely on _source_, it is best to always include it in your message.|MIXED|
@@ -44,7 +44,7 @@ __Message format__
 __Fields__
 
 |Field|Role|Mandatory|Default|
-|-|-|-|-|
+|-----|----|---------|-------|
 |text|Name of the handler to pass the message to.|YES|
 |icon|Icon class of the icon to be rendered on the left side of the alert. Eg. 'check' for a check mark or 'exclamation-circle' for an exclamation mark in a circle.|NO|
 |className|Alert sub-class to use when rendering the alert. Eg. 'e-alert-success' for a green bar, 'e-alert-danger' for a red one.|NO|
@@ -66,7 +66,7 @@ __Message format__
 __Fields__
 
 |Field|Role|Mandatory|
-|-|-|-|
+|-----|----|---------|
 |selection|jQuery selection.|YES|
 
 ## Modal
@@ -91,7 +91,7 @@ __Message format__
 __Fields__
 
 |Field|Role|Mandatory|Default|
-|-|-|-|-|
+|-----|----|---------|-------|
 |src|An URL where the markup of the modal content can be found.|YES||
 |width|Width of the iframe we'll include in the modal.|NO|650|
 |height|Height of the iframe we'll include in the modal.|NO|500|
@@ -102,7 +102,7 @@ __Fields__
 __Query params auto-added__
 
 |Param name|Role|
-|-|-|
+|----------|----|
 |integration_id|Integration ID.|
 |integration_instance_id|The new auto-generated instance ID.|
 |opener_integration_instance_id|Instance ID of the integration the modal was opened by.|
@@ -138,14 +138,14 @@ __Message format__
 __Fields__
 
 |Field|Role|Mandatory|
-|-|-|-|
+|-----|----|---------|
 |target.pathname|The prespecified target you would like to head to.|YES|
 |target.param_foo|The general param the actual target needs.|MIXED|
 
 __Path names available__
 
 |Target|Action|Params|
-|-|-|-|
+|------|------|------|
 |email_campaigns/list|Will head to the campaign list.||
 |email_analysis/list|Will head to reporting.||
 |email_analysis/details|Will head to reporting details of a campaign.|campaign_id, launch_id|
@@ -169,7 +169,7 @@ __Message format__
 __Fields__
 
 |Field|Role|Mandatory|
-|-|-|-|
+|-----|----|---------|
 |envelope|The message passed to the recipient iframe.|NO|
 |integrationInstanceId|The random ID of the integration you would like to send the message to.|YES|
 
@@ -205,7 +205,7 @@ __Message format__
 __Fields__
 
 |Field|Role|Mandatory|
-|-|-|-|
+|-----|----|---------|
 |height|The iframe's desired height.|YES|
 |source.integration_id|ID of the integration the message is coming from.|NO|
 |source.integration_instance_id|Random instance ID of the integration the message is coming from.|YES|
