@@ -147,6 +147,7 @@ __Path names available__
 |Target|Action|Params|
 |------|------|------|
 |email_campaigns/list|Will head to the campaign list.||
+|email_campaigns/edit|Will open the editor with the campaign set.|campaign_id|
 |email_analysis/list|Will head to reporting.||
 |email_analysis/details|Will head to reporting details of a campaign.|campaign_id, launch_id|
 
