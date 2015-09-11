@@ -1,6 +1,6 @@
 # suite-integration-js
 
-Suite Integration JS (SIJS) is an API providing methods of communication between Suite and integrated services running in an iframe. One can send post messages out of the iframe and SIJS will handle those requests if there are handlers for.
+Suite Integration JS (SIJS) is an API providing methods of communication between Suite and integrated services running in an iframe. One can send post messages out of the iframe and SIJS will handle those requests if there is a handler for.
 
 __General message format__
 
