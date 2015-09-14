@@ -1,3 +1,5 @@
+[![Codeship Status for emartech/suite-integration-js](https://codeship.com/projects/b8c16ed0-353d-0133-8e59-224ef9168358/status?branch=master)](https://codeship.com/projects/100723)
+
 # suite-integration-js
 
 Suite Integration JS (SIJS) is an API providing methods of communication between Suite and integrated services running in an iframe. One can send post messages out of the iframe and SIJS will handle those requests if there is a handler for.
@@ -210,3 +212,16 @@ __Fields__
 |height|The iframe's desired height.|YES|
 |source.integration_id|ID of the integration the message is coming from.|NO|
 |source.integration_instance_id|Random instance ID of the integration the message is coming from.|YES|
+
+# Development
+
+If you would like to make local changes, you need to run `gulp start`. You can reach the resulting code [on this local URL then](http://localhost:1234/integration.js).
+
+# Deployment
+
+Code is automatically built and deployed whenever there is a new changeset in following branches:
+
+|Changes to branch|Go live on environment|
+|-----------------|----------------------|
+|master|staging|
+|production|production|
