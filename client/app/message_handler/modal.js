@@ -57,6 +57,13 @@ class MessageHandlerModal extends AbstractMessageHandler {
       type: 'iframe',
       width: message.width
     });
+
+    $eModal.css('opacity', 0);
+    $eModal.find('iframe').load(() => {
+      this.window.setTimeout(() => {
+        $eModal.css('opacity', 1);
+      }, 0);
+    });
   }
 
   static create(global) {
