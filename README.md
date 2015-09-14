@@ -37,7 +37,7 @@ __Message format__
   "text": "Error saving content",
   "icon": "circle-exclamation",
   "className": "e-alert-danger",
-  "timeout": "5000"
+  "timeout": 3000
 }
 ```
 
@@ -48,7 +48,7 @@ __Fields__
 |text|Name of the handler to pass the message to.|YES|
 |icon|Icon class of the icon to be rendered on the left side of the alert. Eg. 'check' for a check mark or 'exclamation-circle' for an exclamation mark in a circle.|NO|
 |className|Alert sub-class to use when rendering the alert. Eg. 'e-alert-success' for a green bar, 'e-alert-danger' for a red one.|NO|
-|timeout|Amount of time the alert will fade out and get removed from the DOM after, in milliseconds.|NO|5000|
+|timeout|Amount of time after the alert will fade out and get removed from the DOM, in milliseconds.|NO|5000|
 
 ## Enable
 
@@ -71,7 +71,7 @@ __Fields__
 
 ## Modal
 
-This handler will open a modal dialog with content provided by your service rendered in an iframe inside the modal. The handler will generate a new integration instance ID and glue integration_id, integration_instance_id and opener_integration_instance_id the URL.
+This handler will open a modal dialog with content provided by your service rendered in an iframe inside the modal. It will generate a new integration instance ID for the iframe and glue integration_id, integration_instance_id and opener_integration_instance_id to the iframe URL.
 
 __Message format__
 
@@ -99,7 +99,7 @@ __Fields__
 |source.integration_instance_id|Random instance ID of the integration the message is coming from.|YES|
 
 
-__Query params auto-added__
+__Iframe URL query params auto-added__
 
 |Param name|Role|
 |----------|----|
