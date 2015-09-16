@@ -1,8 +1,8 @@
 'use strict';
 
-var AbstractMessageHandler = require('./abstract_message_handler');
+var AbstractDialog = require('./abstract_dialog');
 
-class MessageHandlerModal extends AbstractMessageHandler {
+class MessageHandlerModal extends AbstractDialog {
 
   get MESSAGE_EVENT() {
     return 'modal';
@@ -34,30 +34,18 @@ class MessageHandlerModal extends AbstractMessageHandler {
     return message.src + glue + params.join('&');
   }
 
-  getHtml(message, integrationInstanceId) {
+  getModalContent(message, integrationInstanceId) {
     message.width = message.width || 650;
     message.height= message.height || 500;
     message.src = this.decorateUrl(message, integrationInstanceId);
 
-    var markup = [
-      '<e-modal>',
-      '<iframe ' + this.getAttributes(message, integrationInstanceId).join(' ') + '></iframe>',
-      '</e-modal>'
-    ];
-
-    return markup.join('\n');
+    return '<iframe ' + this.getAttributes(message, integrationInstanceId).join(' ') + '></iframe>';
   }
 
   handleMessage(message) {
-    var $eModal = $(this.getHtml(message, Math.floor(Math.random() * 1000000000)));
-    $('body').append($eModal);
+    super.handleMessage(message);
 
-    this.window.riot.mount($eModal[0], {
-      opened: true,
-      type: 'iframe',
-      width: message.width
-    });
-
+    var $eModal = $('e-modal');
     $eModal.css('opacity', 0);
     $eModal.find('iframe').load(() => {
       this.window.setTimeout(() => {

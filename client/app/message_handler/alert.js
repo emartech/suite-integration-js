@@ -25,10 +25,6 @@ class MessageHandlerAlert extends AbstractMessageHandler {
     return classNames;
   }
 
-  cleanMessage(text) {
-    return $('<div>' + text + '</div>').text();
-  }
-
   getHtml(message) {
     var markup = [
       '<div class="' + this.getClassNames(message).join(' ') + '">'

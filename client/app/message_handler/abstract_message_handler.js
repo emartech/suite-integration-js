@@ -17,6 +17,10 @@ class AbstractMessageHandler {
     });
   }
 
+  cleanMessage(text) {
+    return $('<div>' + text + '</div>').text();
+  }
+
   getIntegrationIframe(integrationInstanceId) {
     return this.window.document.getElementById('integration-' + integrationInstanceId);
   }
