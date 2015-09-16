@@ -10,7 +10,7 @@ describe('Modal:Close Handler', function() {
     messageHandler = require('./modal_close').create(fakeWindow);
   });
 
-  it('should listen to messages with event "modal_close"', function() {
+  it('should listen to messages with event "modal:close"', function() {
     expect(messageHandler.MESSAGE_EVENT).to.be.eql('modal:close');
   });
 
