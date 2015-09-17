@@ -2,9 +2,17 @@
 
 var sinon = require('sinon');
 
-class FakeJQuery {
+class FakeJQuery extends Array {
   constructor() {
+    super();
+
     this.removeClass = sinon.stub();
+
+    this.push({
+      contentWindow: {
+        postMessage: sinon.stub()
+      }
+    });
   }
 
   static create() {

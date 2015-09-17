@@ -1,13 +1,13 @@
 'use strict';
 
+var SuiteApi = require('./service/suite_api');
+var DialogApi = require('./service/dialog_api');
+
 (function(global) {
 
   global.SUITE = global.SUITE || {};
-  global.SUITE.integration = {};
-
-  global.SUITE.integration.sendMessage = function(message, integrationInstanceId) {
-    $('#integration-' + integrationInstanceId)[0].contentWindow.postMessage(message, '*');
-  };
+  global.SUITE.integration = SuiteApi.create(global);
+  global.SUITE.integration.dialog = DialogApi.create(global);
 
   require('./message_handler/alert').create(global);
   require('./message_handler/confirm').create(global);

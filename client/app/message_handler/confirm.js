@@ -27,11 +27,11 @@ class MessageHandlerConfirm extends AbstractDialog {
 
     retval.push('<div class="e-buttongroup">');
     retval.push(this.getButtonHtml(
-      'window.SUITE.integration.modal.sendMessage(false)',
+      'window.SUITE.integration.dialog.submit(false)',
       'e-btn',
       message.cancel));
     retval.push(this.getButtonHtml(
-      'window.SUITE.integration.modal.sendMessage(true)',
+      'window.SUITE.integration.dialog.submit(true)',
       'e-btn e-btn-primary',
       message.ok));
     retval.push('</div>');

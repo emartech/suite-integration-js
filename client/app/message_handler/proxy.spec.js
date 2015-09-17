@@ -27,17 +27,16 @@ describe('Proxy Handler', function() {
     };
 
     beforeEach(function() {
-      sinon.stub(messageHandler, 'getIntegrationIframe').returns(fakeIframe);
+      messageHandler.window.SUITE.integration = {
+        messageToService: sinon.stub()
+      };
     });
 
-    it('should look for the iframe addressed', function() {
+    it('should send the message the service', function() {
       messageHandler.handleMessage(message);
-      expect(messageHandler.getIntegrationIframe).to.be.calledWith(message.integrationInstanceId);
-    });
-
-    it('should send a post message to the iframe with proper data', function() {
-      messageHandler.handleMessage(message);
-      expect(fakeIframe.contentWindow.postMessage).to.be.calledWith(message.envelope, '*');
+      expect(messageHandler.window.SUITE.integration.messageToService).to.be.calledWith(
+        message.envelope,
+        message.integrationInstanceId);
     });
   });
 

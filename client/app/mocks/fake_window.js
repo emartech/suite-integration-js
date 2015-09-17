@@ -22,6 +22,12 @@ class FakeWindow {
       }
     };
 
+    this.postMessage = sinon.stub();
+
+    this.parent = {
+      postMessage: sinon.stub()
+    };
+
     this.$ = fakeJQuery.create();
   }
 

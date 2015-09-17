@@ -10,9 +10,7 @@ class MessageHandlerProxy extends AbstractMessageHandler {
 
   handleMessage(message) {
     message.envelope = message.envelope || {};
-
-    this.getIntegrationIframe(message.integrationInstanceId)
-      .contentWindow.postMessage(message.envelope, '*');
+    this.window.SUITE.integration.messageToService(message.envelope, message.integrationInstanceId);
   }
 
   static create(global) {
