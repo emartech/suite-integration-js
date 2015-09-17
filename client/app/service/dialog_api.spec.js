@@ -21,7 +21,7 @@ describe('DialogApi', function() {
       sinon.stub(dialogApi, 'params', {
         get: function() {
           return {
-            modalId: 'foo',
+            dialogId: 'foo',
             openerIntegrationInstanceId: 'bar'
           };
         }
@@ -35,7 +35,7 @@ describe('DialogApi', function() {
         data: {},
         expected: {
           event: 'modal',
-          modalId: 'foo',
+          dialogId: 'foo',
           success: true
         }
       },
@@ -45,7 +45,7 @@ describe('DialogApi', function() {
         data: {},
         expected: {
           event: 'modal',
-          modalId: 'foo',
+          dialogId: 'foo',
           success: false
         }
       },
@@ -57,7 +57,7 @@ describe('DialogApi', function() {
         },
         expected: {
           event: 'modal',
-          modalId: 'foo',
+          dialogId: 'foo',
           success: false,
           key: 'value'
         }

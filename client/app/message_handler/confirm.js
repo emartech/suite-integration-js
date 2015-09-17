@@ -47,7 +47,7 @@ class MessageHandlerConfirm extends AbstractDialog {
       integrationId: message.source.integration_id,
       integrationInstanceId: 'SUITE',
       openerIntegrationInstanceId: message.source.integration_instance_id,
-      modalId: message.modalId
+      dialogId: message.dialogId
     }));
   }
 

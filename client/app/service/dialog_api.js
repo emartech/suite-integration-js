@@ -8,7 +8,7 @@ class DialogApi extends IntegrationApi {
     data = data || {};
     var message = {
       event: 'modal',
-      modalId: this.params.modalId,
+      dialogId: this.params.dialogId,
       success: success
     };
 
