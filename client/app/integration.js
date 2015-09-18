@@ -18,5 +18,6 @@ var DialogApi = require('./service/dialog_api');
   require('./message_handler/proxy').create(global);
   require('./message_handler/refresh').create(global);
   require('./message_handler/resize').create(global);
+  require('./message_handler/unload_init').create(global);
 
 })(window);
