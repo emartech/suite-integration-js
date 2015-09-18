@@ -9,6 +9,8 @@ class FakeJQuery extends Array {
 
     this.removeClass = sinon.stub();
 
+    this.off = sinon.stub();
+
     this.push({
       contentWindow: {
         postMessage: sinon.stub()

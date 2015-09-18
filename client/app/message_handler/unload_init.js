@@ -9,15 +9,7 @@ class MessageHandlerUnloadInit extends ConfirmHandler {
   }
 
   handleMessage(message) {
-    var defaultConfirm = {
-      ok: this.window.gettext('Ok'),
-      cancel: this.window.gettext('Cancel'),
-      source: {
-        integration_id: 'SUITE'
-      }
-    };
-
-    message.confirm = $.extend({}, defaultConfirm, message.confirm);
+    this.getNavigationConfirmOptions(message);
 
     $(this.window).off('beforeunload');
     $(this.window).on('beforeunload', function() {
@@ -34,18 +26,15 @@ class MessageHandlerUnloadInit extends ConfirmHandler {
         event.preventDefault();
         event.stopPropagation();
 
-        message.confirm.params = {
-          url: event.target.href
-        };
-        message.confirm.dialogId = Math.floor(Math.random() * 10000000);
-
-        this.window.SUITE.integration.dialog.confirm(message.confirm).then((message) => {
-          $(this.window).off('beforeunload');
-          window.location.href = message.url;
+        this.window.SUITE.integration.dialog.confirm(message.confirm).then(() => {
+          this.window.$(this.window).off('beforeunload');
+          this.window.location.href = event.target.href;
         }).always(() => {
           this.window.SUITE.integration.dialog.close();
         });
       });
+
+    this.window.SUITE.integration.unloadInitialized = true;
   }
 
   static create(global) {

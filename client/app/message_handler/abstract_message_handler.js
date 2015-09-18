@@ -25,6 +25,22 @@ class AbstractMessageHandler {
     return this.window.document.getElementById('integration-' + integrationInstanceId);
   }
 
+  getNavigationConfirmOptions(message) {
+    var defaultConfirm = {
+      ok: this.window.gettext('Ok'),
+      cancel: this.window.gettext('Cancel'),
+      title: this.window.gettext('Confirm navigation'),
+      body: this.window.gettext('You have unsaved changes you will lose if you leave this page.'),
+      source: {
+        integration_id: 'SUITE'
+      }
+    };
+
+    message.confirm = this.window.$.extend({}, defaultConfirm, message.confirm);
+
+    return message.confirm;
+  }
+
 }
 
 module.exports = AbstractMessageHandler;

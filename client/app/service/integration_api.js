@@ -4,6 +4,7 @@ class IntegrationApi {
 
   constructor(window) {
     this.window = window;
+    this.unloadInitialized = false;
   }
 
   get params() {

@@ -49,6 +49,10 @@ class DialogApi extends IntegrationApi {
   }
 
   confirm(options) {
+    if (!options.dialogId) {
+      options.dialogId = Math.floor(Math.random() * 10000000);
+    }
+
     if (options.params) {
       this.confirmParams[options.dialogId] = options.params;
     }

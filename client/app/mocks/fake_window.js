@@ -2,6 +2,7 @@
 
 var sinon = require('sinon');
 var fakeJQuery = require('./fake_jquery');
+var jquery = require('jquery');
 
 class FakeWindow {
   constructor() {
@@ -19,6 +20,12 @@ class FakeWindow {
     this.SUITE = {
       config: {
         session_id: 'SESSIONID'
+      },
+      integration: {
+        unloadInitialized: false,
+        dialog: {
+          close: sinon.stub()
+        }
       }
     };
 
@@ -47,6 +54,18 @@ class FakeWindow {
 
   gettext(text) {
     return text;
+  }
+
+  resolved(data) {
+    var deferred = jquery.Deferred();
+    deferred.resolve(data);
+    return deferred.promise();
+  }
+
+  rejected(data) {
+    var deferred = jquery.Deferred();
+    deferred.reject(data);
+    return deferred.promise();
   }
 
   static create() {
