@@ -1,7 +1,5 @@
 'use strict';
 
-var sinon = require('sinon');
-
 describe('Confirm Handler', function() {
 
   var fakeWindow;
@@ -14,86 +12,6 @@ describe('Confirm Handler', function() {
 
   it('should listen to messages with event "confirm"', function() {
     expect(messageHandler.MESSAGE_EVENT).to.be.eql('confirm');
-  });
-
-  describe('#getModalContent', function() {
-    beforeEach(function() {
-      sinon.stub(messageHandler, 'cleanMessage', function(text) {
-        return text;
-      });
-    });
-
-    var testCases = [
-      {
-        name: 'should return HTML with modal title',
-        data: {
-          title: 'foo'
-        },
-        expected: '<h2>foo</h2>'
-      },
-      {
-        name: 'should return HTML with modal body',
-        data: {
-          title: 'foo',
-          body: 'bar'
-        },
-        expected: '<p>bar</p>'
-      },
-      {
-        name: 'should return HTML with a cancel button',
-        data: {
-          title: 'foo',
-          ok: 'yes',
-          cancel: 'no'
-        },
-        regexpected: new RegExp('<button type="button".*class="e-btn">no</button>')
-      },
-      {
-        name: 'should return HTML with an ok button',
-        data: {
-          title: 'foo',
-          ok: 'yes',
-          cancel: 'no'
-        },
-        regexpected: new RegExp('<button type="button".*class="e-btn e-btn-primary">yes</button>')
-      }
-    ];
-
-    testCases.forEach(function(test) {
-      it(test.name, function() {
-        test.data.source = {
-          integration_id: 'foo-integration',
-          integration_instance_id: 1234
-        };
-
-        var html = messageHandler.getModalContent(test.data);
-        if (test.regexpected) {
-          expect(html).to.match(test.regexpected);
-        } else {
-          expect(html).to.have.string(test.expected);
-        }
-      });
-    });
-  });
-
-  describe('#getButtomHtml', function() {
-    beforeEach(function() {
-      sinon.stub(messageHandler, 'cleanMessage', function(text) {
-        return text;
-      });
-    });
-
-    it('should provide HTML for a button', function() {
-      var buttonHtml = messageHandler.getButtonHtml('foo', 'bar', 'text');
-
-      var expected = '<button type="button" onClick="foo" class="bar">text</button>';
-      expect(buttonHtml).to.be.eql(expected);
-    });
-
-    it('should use cleanMessage to clean button text', function() {
-      messageHandler.getButtonHtml('foo', 'bar', 'text');
-      expect(messageHandler.cleanMessage).to.have.been.calledWith('text');
-    });
   });
 
 });

@@ -45,6 +45,10 @@ class FakeWindow {
     }
   }
 
+  gettext(text) {
+    return text;
+  }
+
   static create() {
     return new FakeWindow();
   }
