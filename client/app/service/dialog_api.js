@@ -10,6 +10,7 @@ class DialogApi extends IntegrationApi {
     super(window);
 
     this.deferreds = {};
+    this.confirmComponents = {};
     this.confirmParams = {};
   }
 
@@ -57,7 +58,16 @@ class DialogApi extends IntegrationApi {
       this.confirmParams[options.dialogId] = options.params;
     }
 
-    new ConfirmComponent(this.window, options).render();
+    var confirmComponent = new ConfirmComponent(this.window, options);
+    if (options.optional) {
+      this.confirmComponents[options.dialogId] = confirmComponent;
+      this.window.SUITE.integration.messageToService({
+        event: options.checkEvent,
+        confirmId: options.dialogId
+      }, this.window.SUITE.integration.unload.initializedBy);
+    } else {
+      confirmComponent.render();
+    }
 
     if (options.source.integration_id === 'SUITE') {
       this.deferreds[options.dialogId] = this.window.$.Deferred();

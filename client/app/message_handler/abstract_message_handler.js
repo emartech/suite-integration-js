@@ -27,6 +27,8 @@ class AbstractMessageHandler {
 
   getNavigationConfirmOptions(message) {
     var defaultConfirm = {
+      optional: false,
+      checkEvent: 'unload:confirm',
       ok: this.window.gettext('Ok'),
       cancel: this.window.gettext('Cancel'),
       title: this.window.gettext('Confirm navigation'),
