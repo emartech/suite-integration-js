@@ -162,4 +162,95 @@ describe('DialogApi', function() {
     });
   });
 
+  describe('#confirm', function() {
+    var immediateConfirmOptions = {
+      optional: false,
+      source: {
+        integration_id: 'SUITE'
+      }
+    };
+    var optionalConfirmOptions = {
+      optional: true,
+      checkEvent: 'event-name',
+      dialogId: 1234,
+      askFrom: 9876,
+      source: {
+        integration_id: 'SUITE'
+      }
+    };
+    var fakeConfirmComponent = {
+      render: sinon.stub()
+    };
+
+    beforeEach(function() {
+      dialogApi.getConfirmComponent = sinon.stub().returns(fakeConfirmComponent);
+    });
+
+    it('should create a confirm dialog', function() {
+      dialogApi.confirm(immediateConfirmOptions);
+      expect(dialogApi.getConfirmComponent).to.be.calledWith(immediateConfirmOptions);
+    });
+
+    it('should render the confirm dialog when it is not optional', function() {
+      dialogApi.confirm(immediateConfirmOptions);
+      expect(fakeConfirmComponent.render).to.be.called;
+    });
+
+    it('should send a message to the service marked in confirmOptions when the dialog is optional', function() {
+      fakeWindow.SUITE.integration = {
+        messageToService: sinon.stub()
+      };
+
+      dialogApi.confirm(optionalConfirmOptions);
+      expect(fakeWindow.SUITE.integration.messageToService).to.be.calledWith({
+        event: optionalConfirmOptions.checkEvent,
+        confirmId: optionalConfirmOptions.dialogId
+      }, optionalConfirmOptions.askFrom);
+    });
+
+  });
+
+  describe('#confirmNavigation', function() {
+    var fakeUrl = 'http://fake.url';
+    var fakeConfirmOptions = {
+      key: 'foo'
+    };
+
+    beforeEach(function() {
+      dialogApi.confirm = sinon.stub().returns(fakeWindow.resolved());
+      dialogApi.close = sinon.stub();
+    });
+
+    it('should call confirm() with options passed', function(done) {
+      dialogApi.confirmNavigation(fakeUrl, fakeConfirmOptions).always(() => {
+        expect(dialogApi.confirm).to.be.calledWith(fakeConfirmOptions);
+        done();
+      });
+    });
+
+    it('should set proper location when the confirm promise is resolved', function(done) {
+      dialogApi.confirmNavigation(fakeUrl, fakeConfirmOptions).then(() => {
+        expect(fakeWindow.location.href).to.eql(fakeUrl);
+        done();
+      });
+    });
+
+    it('should not change location when the confirm promise is rejected', function(done) {
+      var originalLocation = fakeWindow.location.href;
+      dialogApi.confirm = sinon.stub().returns(fakeWindow.rejected());
+
+      dialogApi.confirmNavigation(fakeUrl, fakeConfirmOptions).fail(() => {
+        expect(fakeWindow.location.href).to.eql(originalLocation);
+        done();
+      });
+    });
+
+    it('should close the confirm dialog at the end', function(done) {
+      dialogApi.confirmNavigation(fakeUrl, fakeConfirmOptions).always(() => {
+        expect(dialogApi.close).to.be.called;
+        done();
+      });
+    });
+  });
+
 });

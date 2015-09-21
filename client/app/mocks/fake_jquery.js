@@ -2,6 +2,7 @@
 
 var sinon = require('sinon');
 var _ = require('lodash');
+var jquery = require('jquery');
 
 class FakeJQuery extends Array {
   constructor() {
@@ -21,6 +22,7 @@ class FakeJQuery extends Array {
   static create() {
     var retval = sinon.stub().returns(new FakeJQuery());
     retval.extend = _.extend;
+    retval.Deferred = jquery.Deferred;
     return retval;
   }
 }

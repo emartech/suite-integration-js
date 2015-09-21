@@ -22,7 +22,9 @@ class FakeWindow {
         session_id: 'SESSIONID'
       },
       integration: {
-        unloadInitialized: false,
+        unload: {
+          initialized: false
+        },
         dialog: {
           close: sinon.stub()
         }

@@ -26,15 +26,13 @@ class MessageHandlerUnloadInit extends AbstractMessageHandler {
         event.preventDefault();
         event.stopPropagation();
 
-        this.window.SUITE.integration.dialog.confirm(message.confirm).then(() => {
-          this.window.$(this.window).off('beforeunload');
-          this.window.location.href = event.target.href;
-        }).always(() => {
-          this.window.SUITE.integration.dialog.close();
-        });
+        this.window.SUITE.integration.dialog.confirmNavigation(event.target.href, message.confirm);
       });
 
-    this.window.SUITE.integration.unloadInitialized = true;
+    this.window.SUITE.integration.unload.initialized = true;
+    if (message.confirm.optional) {
+      message.confirm.askFrom = message.source.integration_instance_id;
+    }
   }
 
   static create(global) {

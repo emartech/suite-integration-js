@@ -58,13 +58,13 @@ class DialogApi extends IntegrationApi {
       this.confirmParams[options.dialogId] = options.params;
     }
 
-    var confirmComponent = new ConfirmComponent(this.window, options);
+    var confirmComponent = this.getConfirmComponent(options);
     if (options.optional) {
       this.confirmComponents[options.dialogId] = confirmComponent;
       this.window.SUITE.integration.messageToService({
         event: options.checkEvent,
         confirmId: options.dialogId
-      }, this.window.SUITE.integration.unload.initializedBy);
+      }, options.askFrom);
     } else {
       confirmComponent.render();
     }
@@ -73,6 +73,23 @@ class DialogApi extends IntegrationApi {
       this.deferreds[options.dialogId] = this.window.$.Deferred();
       return this.deferreds[options.dialogId].promise();
     }
+  }
+
+  getConfirmComponent(options) {
+    return new ConfirmComponent(this.window, options);
+  }
+
+  confirmNavigation(url, confirmOptions) {
+    var confirmPromise = this.confirm(confirmOptions);
+
+    confirmPromise.then(() => {
+      this.window.$(this.window).off('beforeunload');
+      this.window.location.href = url;
+    }).always(() => {
+      this.close();
+    });
+
+    return confirmPromise;
   }
 
   modal(options) {

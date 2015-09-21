@@ -58,8 +58,8 @@ describe('Navigate Handler', function() {
 
   describe('when unload confirm is initialized', function() {
     beforeEach(function() {
-      fakeWindow.SUITE.integration.unloadInitialized = true;
-      fakeWindow.SUITE.integration.dialog.confirm = sinon.stub().returns(fakeWindow.resolved());
+      fakeWindow.SUITE.integration.unload.initialized = true;
+      fakeWindow.SUITE.integration.dialog.confirmNavigation = sinon.stub().returns(fakeWindow.resolved());
     });
 
     it('should pop a confirm dialog when we have the unload confirm initialized', function() {
@@ -70,46 +70,7 @@ describe('Navigate Handler', function() {
         }
       });
 
-      expect(fakeWindow.SUITE.integration.dialog.confirm).to.be.called;
-    });
-
-    it('should set proper location when the confirm promise is resolved', function(done) {
-      messageHandler.handleMessage({
-        event: 'navigate',
-        target: {
-          pathname: 'email_campaigns/list'
-        }
-      }).then(() => {
-        expect(fakeWindow.location.href).to.eql('campaignmanager.php?session_id=SESSIONID&action=list');
-        done();
-      });
-    });
-
-    it('should not change location when the confirm promise is rejected', function(done) {
-      var originalLocation = fakeWindow.location.href;
-      fakeWindow.SUITE.integration.dialog.confirm = sinon.stub().returns(fakeWindow.rejected());
-
-      messageHandler.handleMessage({
-        event: 'navigate',
-        target: {
-          pathname: 'email_campaigns/list'
-        }
-      }).fail(() => {
-        expect(fakeWindow.location.href).to.eql(originalLocation);
-        done();
-      });
-    });
-
-    it('should close the confirm dialog at the end', function(done) {
-      messageHandler.handleMessage({
-        event: 'navigate',
-        target: {
-          pathname: 'email_campaigns/list'
-        }
-      }).always(() => {
-        expect(fakeWindow.SUITE.integration.dialog.close).to.be.called;
-        done();
-      });
+      expect(fakeWindow.SUITE.integration.dialog.confirmNavigation).to.be.called;
     });
   });
 

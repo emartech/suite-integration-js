@@ -64,17 +64,10 @@ class MessageHandlerNavigate extends AbstractMessageHandler {
       }
     }
 
-    if (this.window.SUITE.integration.unloadInitialized) {
-      var confirmPromise = this.window.SUITE.integration.dialog.confirm(this.getNavigationConfirmOptions(message));
-
-      confirmPromise.then(() => {
-        this.window.$(this.window).off('beforeunload');
-        this.window.location.href = pathname;
-      }).always(() => {
-        this.window.SUITE.integration.dialog.close();
-      });
-
-      return confirmPromise;
+    if (this.window.SUITE.integration.unload.initialized) {
+      return this.window.SUITE.integration.dialog.confirmNavigation(
+        pathname,
+        this.getNavigationConfirmOptions(message));
     } else {
       this.window.location.href = pathname;
     }
