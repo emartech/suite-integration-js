@@ -1,8 +1,8 @@
 'use strict';
 
-var ConfirmHandler = require('./confirm');
+var AbstractMessageHandler = require('./abstract_message_handler');
 
-class MessageHandlerUnloadInit extends ConfirmHandler {
+class MessageHandlerUnloadInit extends AbstractMessageHandler {
 
   get MESSAGE_EVENT() {
     return 'unload:init';
