@@ -36,9 +36,7 @@ class AbstractMessageHandler {
       }
     };
 
-    message.confirm = this.window.$.extend({}, defaultConfirm, message.confirm);
-
-    return message.confirm;
+    return this.window.$.extend({}, defaultConfirm, message.confirm);
   }
 
 }

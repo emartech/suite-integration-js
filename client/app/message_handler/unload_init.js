@@ -9,7 +9,7 @@ class MessageHandlerUnloadInit extends AbstractMessageHandler {
   }
 
   handleMessage(message) {
-    this.getNavigationConfirmOptions(message);
+    message.confirm = this.getNavigationConfirmOptions(message);
 
     $(this.window).off('beforeunload');
     $(this.window).on('beforeunload', function() {
