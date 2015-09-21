@@ -2,18 +2,19 @@
 
 class Dialog {
 
-  constructor(global) {
+  constructor(global, options) {
     this.window = global;
+    this.options = options;
   }
 
-  render(options) {
-    var $eModal = this.window.$(this.getHtml(options, Math.floor(Math.random() * 1000000000)));
+  render() {
+    var $eModal = this.window.$(this.getHtml(this.options, Math.floor(Math.random() * 1000000000)));
     this.window.$('body').append($eModal);
 
     this.window.riot.mount($eModal[0], {
       opened: true,
       type: this.modalType,
-      width: options.width
+      width: this.options.width
     });
   }
 

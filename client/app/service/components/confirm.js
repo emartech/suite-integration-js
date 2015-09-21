@@ -8,15 +8,15 @@ class Confirm extends Dialog {
     return 'standard';
   }
 
-  render(options) {
-    super.render(options);
+  render() {
+    super.render();
 
     var $eModal = this.window.$('e-modal');
     $eModal.attr('data-params', JSON.stringify({
-      integrationId: options.source.integration_id,
+      integrationId: this.options.source.integration_id,
       integrationInstanceId: 'SUITE',
-      openerIntegrationInstanceId: options.source.integration_instance_id,
-      dialogId: options.dialogId
+      openerIntegrationInstanceId: this.options.source.integration_instance_id,
+      dialogId: this.options.dialogId
     }));
   }
 

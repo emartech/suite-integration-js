@@ -57,7 +57,7 @@ class DialogApi extends IntegrationApi {
       this.confirmParams[options.dialogId] = options.params;
     }
 
-    new ConfirmComponent(this.window).render(options);
+    new ConfirmComponent(this.window, options).render();
 
     if (options.source.integration_id === 'SUITE') {
       this.deferreds[options.dialogId] = this.window.$.Deferred();
@@ -66,7 +66,7 @@ class DialogApi extends IntegrationApi {
   }
 
   modal(options) {
-    new ModalComponent(this.window).render(options);
+    new ModalComponent(this.window, options).render();
   }
 
   close() {

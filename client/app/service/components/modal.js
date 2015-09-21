@@ -8,8 +8,8 @@ class Modal extends Dialog {
     return 'iframe';
   }
 
-  render(options) {
-    super.render(options);
+  render() {
+    super.render();
 
     var $eModal = $('e-modal');
     $eModal.css('opacity', 0);
