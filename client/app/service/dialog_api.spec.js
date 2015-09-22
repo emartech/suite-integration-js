@@ -246,7 +246,9 @@ describe('DialogApi', function() {
     });
 
     it('should close the confirm dialog at the end', function(done) {
-      dialogApi.confirmNavigation(fakeUrl, fakeConfirmOptions).always(() => {
+      dialogApi.confirm = sinon.stub().returns(fakeWindow.rejected());
+
+      dialogApi.confirmNavigation(fakeUrl, fakeConfirmOptions).fail(() => {
         expect(dialogApi.close).to.be.called;
         done();
       });
