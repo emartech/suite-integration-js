@@ -17,8 +17,8 @@ class IntegrationApi {
     }
 
     return {
-      integration_id: 'SUITE',
-      integration_instance_id: 'SUITE'
+      integrationId: 'SUITE',
+      integrationInstanceId: 'SUITE'
     };
   }
 
