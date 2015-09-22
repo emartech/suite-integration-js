@@ -1,7 +1,5 @@
 'use strict';
 
-var sinon = require('sinon');
-
 describe('SuiteApi', function() {
 
   var fakeWindow;
@@ -33,7 +31,6 @@ describe('SuiteApi', function() {
       var testMessage = {
         event: 'foo'
       };
-      sinon.stub(suiteApi, 'setMessageSource').returns(testMessage);
 
       suiteApi.messageToSuite(testMessage);
       expect(fakeWindow.postMessage).to.have.been.calledWith(testMessage, '*');
