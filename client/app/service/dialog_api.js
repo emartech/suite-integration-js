@@ -85,7 +85,7 @@ class DialogApi extends IntegrationApi {
     confirmPromise.then(() => {
       this.window.$(this.window).off('beforeunload');
       this.window.location.href = url;
-    }).always(() => {
+    }).fail(() => {
       this.close();
     });
 
