@@ -12,9 +12,14 @@ class IntegrationApi {
   get params() {
     if (document.getElementsByTagName('e-modal').length) {
       return JSON.parse(document.getElementsByTagName('e-modal')[0].getAttribute('data-params'));
+    } else if (document.body.hasAttribute('data-params')) {
+      return JSON.parse(document.body.getAttribute('data-params'));
     }
 
-    return JSON.parse(document.body.getAttribute('data-params'));
+    return {
+      integration_id: 'SUITE',
+      integration_instance_id: 'SUITE'
+    };
   }
 
   setMessageSource(message) {
