@@ -29,14 +29,14 @@ class DialogApi extends IntegrationApi {
   }
 
   generateMessage(success, data = {}) {
-    var message = this.window.$.extend({
+    var message = Object.assign({
       event: 'dialog:submit',
       dialogId: this.params.dialogId,
       success: success
     }, data);
 
     if (this.confirmParams[this.params.dialogId]) {
-      message = this.window.$.extend(message, this.confirmParams[this.params.dialogId]);
+      message = Object.assign(message, this.confirmParams[this.params.dialogId]);
     }
 
     return message;
