@@ -1,5 +1,6 @@
 'use strict';
 
+var extend = require('extend');
 var IntegrationApi = require('./integration_api');
 var ConfirmComponent = require('./components/confirm');
 var ModalComponent = require('./components/modal');
@@ -29,14 +30,14 @@ class DialogApi extends IntegrationApi {
   }
 
   generateMessage(success, data = {}) {
-    var message = Object.assign({
+    var message = extend({
       event: 'dialog:submit',
       dialogId: this.params.dialogId,
       success: success
     }, data);
 
     if (this.confirmParams[this.params.dialogId]) {
-      message = Object.assign(message, this.confirmParams[this.params.dialogId]);
+      message = extend(message, this.confirmParams[this.params.dialogId]);
     }
 
     return message;
