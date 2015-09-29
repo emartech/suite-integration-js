@@ -22,8 +22,7 @@ describe('Alert Handler', function() {
         name: 'should return classNames when no special className specified',
         data: {},
         expected: [
-          'e-alert',
-          'e-alert-fixed'
+          'e-alert'
         ]
       },
       {
@@ -33,7 +32,6 @@ describe('Alert Handler', function() {
         },
         expected: [
           'e-alert',
-          'e-alert-fixed',
           'e-alert-foo'
         ]
       },
@@ -44,7 +42,6 @@ describe('Alert Handler', function() {
         },
         expected: [
           'e-alert',
-          'e-alert-fixed',
           'e-alert-withicon'
         ]
       },
@@ -56,7 +53,6 @@ describe('Alert Handler', function() {
         },
         expected: [
           'e-alert',
-          'e-alert-fixed',
           'e-alert-foo',
           'e-alert-withicon'
         ]
@@ -82,7 +78,7 @@ describe('Alert Handler', function() {
       {
         name: 'should return HTML with classNames',
         data: {},
-        expected: 'e-alert e-alert-fixed'
+        expected: 'e-alert'
       },
       {
         name: 'should return HTML with proper class when icon is set',

@@ -41,6 +41,15 @@ class AbstractMessageHandler {
     return this.window.$.extend({}, defaultConfirm, message.confirm);
   }
 
+  getMessageContainerElement() {
+    var container = $('#suite-integration-js-message-container');
+    if (container.length === 0) {
+      container = $('<div class="e-alert-fixed" id="suite-integration-js-message-container"/>').appendTo('body');
+    }
+
+    return container;
+  }
+
 }
 
 module.exports = AbstractMessageHandler;

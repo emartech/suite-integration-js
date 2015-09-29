@@ -10,8 +10,7 @@ class MessageHandlerAlert extends AbstractMessageHandler {
 
   getClassNames(message) {
     var classNames = [
-      'e-alert',
-      'e-alert-fixed'
+      'e-alert'
     ];
 
     if (message.className) {
@@ -46,7 +45,7 @@ class MessageHandlerAlert extends AbstractMessageHandler {
     message.timeout = message.timeout || 5000;
 
     var $eAlert = $(this.getHtml(message));
-    $('body').append($eAlert);
+    $eAlert.appendTo(this.getMessageContainerElement());
 
     window.setTimeout(function() {
       $eAlert.fadeOut('normal', function() {
