@@ -52,24 +52,28 @@ class MessageHandlerNavigate extends AbstractMessageHandler {
     throw new Error('Error 404: Unknown pathname');
   }
 
-  handleMessage(message) {
-    var target = message.target;
-    var pathname = this.getUrlByPathname(target.pathname);
+  replaceUrlParams(url, params) {
+    params.session_id = this.window.SUITE.config.session_id;
 
-    target.session_id = this.window.SUITE.config.session_id;
-
-    for (var key in target) {
-      if (target.hasOwnProperty(key) && key !== 'pathname') {
-        pathname = pathname.replace('{' + key + '}', target[key]);
+    for (var key in params) {
+      if (params.hasOwnProperty(key) && key !== 'pathname') {
+        url = url.replace('{' + key + '}', params[key]);
       }
     }
 
+    return url;
+  }
+
+  handleMessage(message) {
+    var url = this.getUrlByPathname(message.target.pathname);
+    url = this.replaceUrlParams(url, message.target);
+
     if (this.window.SUITE.integration.unload.initialized) {
       return this.window.SUITE.integration.dialog.confirmNavigation(
-        pathname,
+        url,
         this.getNavigationConfirmOptions(message));
     } else {
-      this.window.location.href = pathname;
+      this.window.location.href = url;
     }
   }
 
