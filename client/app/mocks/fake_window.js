@@ -9,6 +9,7 @@ class FakeWindow {
     this.listeners = {};
 
     this.location = {
+      host: 'mocked.tld',
       pathname: 'mocked',
       reload: sinon.stub()
     };
@@ -26,6 +27,7 @@ class FakeWindow {
           initialized: false
         },
         dialog: {
+          modal: sinon.stub(),
           close: sinon.stub()
         }
       }

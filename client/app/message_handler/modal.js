@@ -9,6 +9,11 @@ class MessageHandlerModal extends AbstractMessageHandler {
   }
 
   handleMessage(message) {
+    if (message.src.match(/^\/{1}[^\/]+/)) {
+      message.src = '//' + this.window.location.host + message.src;
+      message.src = message.src.replace('{session_id}', this.window.SUITE.config.session_id);
+    }
+
     this.window.SUITE.integration.dialog.modal(message);
   }
 
