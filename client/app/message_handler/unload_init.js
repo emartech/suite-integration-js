@@ -9,16 +9,18 @@ class MessageHandlerUnloadInit extends AbstractMessageHandler {
   }
 
   handleMessage(message) {
+    var eventNamespace = 'confirm_navigation_' + message.source.integration_instance_id;
+
     message.confirm = this.getNavigationConfirmOptions(message);
 
-    $(this.window).off('beforeunload');
-    $(this.window).on('beforeunload', function() {
+    $(this.window).off('beforeunload.' + eventNamespace);
+    $(this.window).on('beforeunload.' + eventNamespace, function() {
       return message.confirm.body;
     });
 
     $(message.selection)
-      .off('click.confirm_navigation')
-      .on('click.confirm_navigation', 'a[href][target!="_blank"]:not([onclick])', (event) => {
+      .off('click.' + eventNamespace)
+      .on('click.' + eventNamespace, 'a[href][target!="_blank"]:not([onclick])', (event) => {
         if (event.ctrlKey || event.metaKey || event.which === 2 || !event.target.hostname) {
           return;
         }

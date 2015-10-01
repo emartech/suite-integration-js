@@ -163,17 +163,8 @@ describe('DialogApi', function() {
   });
 
   describe('#confirm', function() {
-    var immediateConfirmOptions = {
+    var confirmOptions = {
       optional: false,
-      source: {
-        integration_id: 'SUITE'
-      }
-    };
-    var optionalConfirmOptions = {
-      optional: true,
-      checkEvent: 'event-name',
-      dialogId: 1234,
-      askFrom: 9876,
       source: {
         integration_id: 'SUITE'
       }
@@ -187,27 +178,14 @@ describe('DialogApi', function() {
     });
 
     it('should create a confirm dialog', function() {
-      dialogApi.confirm(immediateConfirmOptions);
-      expect(dialogApi.getConfirmComponent).to.be.calledWith(immediateConfirmOptions);
+      dialogApi.confirm(confirmOptions);
+      expect(dialogApi.getConfirmComponent).to.be.calledWith(confirmOptions);
     });
 
     it('should render the confirm dialog when it is not optional', function() {
-      dialogApi.confirm(immediateConfirmOptions);
+      dialogApi.confirm(confirmOptions);
       expect(fakeConfirmComponent.render).to.be.called;
     });
-
-    it('should send a message to the service marked in confirmOptions when the dialog is optional', function() {
-      fakeWindow.SUITE.integration = {
-        messageToService: sinon.stub()
-      };
-
-      dialogApi.confirm(optionalConfirmOptions);
-      expect(fakeWindow.SUITE.integration.messageToService).to.be.calledWith({
-        event: optionalConfirmOptions.checkEvent,
-        confirmId: optionalConfirmOptions.dialogId
-      }, optionalConfirmOptions.askFrom);
-    });
-
   });
 
   describe('#confirmNavigation', function() {
