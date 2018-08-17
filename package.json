@@ -33,7 +33,7 @@
     "url": "git+https://github.com/emartech/suite-integration-js.git"
   },
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/emartech/suite-integration-js/issues"
   },
