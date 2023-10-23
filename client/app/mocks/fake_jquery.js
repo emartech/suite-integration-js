@@ -1,27 +1,33 @@
 'use strict';
 
-var sinon = require('sinon');
-var _ = require('lodash');
-var jquery = require('jquery');
+const _extend = require('lodash/extend');
+const jquery = require('jquery');
 
 class FakeJQuery extends Array {
-  constructor() {
+  constructor(sandbox) {
     super();
 
-    this.removeClass = sinon.stub();
+    this.appendTo = sandbox.stub();
+    this.removeClass = sandbox.stub();
 
-    this.off = sinon.stub();
+    this.removeClass = sandbox.stub();
+
+    this.off = sandbox.stub();
+
+    this.remove = sandbox.stub();
+
+    this.attr = sandbox.stub();
 
     this.push({
       contentWindow: {
-        postMessage: sinon.stub()
+        postMessage: sandbox.stub()
       }
     });
   }
 
-  static create() {
-    var retval = sinon.stub().returns(new FakeJQuery());
-    retval.extend = _.extend;
+  static create(sandbox) {
+    let retval = sandbox.stub().returns(new FakeJQuery(sandbox));
+    retval.extend = _extend;
     retval.Deferred = jquery.Deferred;
     return retval;
   }

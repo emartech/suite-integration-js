@@ -7,7 +7,7 @@ describe('Resize Handler', function() {
   var integrationInstanceId = 'fake_instance_id';
 
   beforeEach(function() {
-    fakeWindow = require('../mocks/fake_window').create();
+    fakeWindow = require('../mocks/fake_window').create(this.sandbox);
     messageHandler = require('./resize').create(fakeWindow);
   });
 

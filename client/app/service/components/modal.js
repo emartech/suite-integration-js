@@ -48,7 +48,7 @@ class Modal extends Dialog {
 
   getModalContent(options, integrationInstanceId) {
     options.width = options.width || 650;
-    options.height= options.height || 500;
+    options.height = options.height || 500;
     options.src = this.decorateUrl(options, integrationInstanceId);
 
     return '<iframe ' + this.getAttributes(options, integrationInstanceId).join(' ') + '></iframe>';

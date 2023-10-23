@@ -6,7 +6,7 @@ describe('SuiteApi', function() {
   var suiteApi;
 
   beforeEach(function() {
-    fakeWindow = require('../mocks/fake_window').create();
+    fakeWindow = require('../mocks/fake_window').create(this.sandbox);
     suiteApi = require('./suite_api').create(fakeWindow);
   });
 
@@ -36,5 +36,4 @@ describe('SuiteApi', function() {
       expect(fakeWindow.postMessage).to.have.been.calledWith(testMessage, '*');
     });
   });
-
 });

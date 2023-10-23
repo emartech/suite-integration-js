@@ -1,14 +1,12 @@
 'use strict';
 
-var sinon = require('sinon');
-
 describe('Navigate Handler', function() {
 
   var fakeWindow;
   var messageHandler;
 
   beforeEach(function() {
-    fakeWindow = require('../mocks/fake_window').create();
+    fakeWindow = require('../mocks/fake_window').create(this.sandbox);
     messageHandler = require('./navigate').create(fakeWindow);
   });
 
@@ -59,7 +57,7 @@ describe('Navigate Handler', function() {
   describe('when unload confirm is initialized', function() {
     beforeEach(function() {
       fakeWindow.SUITE.integration.unload.initialized = true;
-      fakeWindow.SUITE.integration.dialog.confirmNavigation = sinon.stub().returns(fakeWindow.resolved());
+      fakeWindow.SUITE.integration.dialog.confirmNavigation = this.sandbox.stub().returns(fakeWindow.resolved());
     });
 
     it('should pop a confirm dialog when we have the unload confirm initialized', function() {
