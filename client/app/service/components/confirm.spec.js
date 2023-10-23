@@ -1,21 +1,19 @@
 'use strict';
 
-var sinon = require('sinon');
 var ConfirmComponent = require('./confirm');
-
 describe('Confirm Component', function() {
 
   var fakeWindow;
   var confirmComponent;
 
   beforeEach(function() {
-    fakeWindow = require('../../mocks/fake_window').create();
+    fakeWindow = require('../../mocks/fake_window').create(this.sandbox);
     confirmComponent = new ConfirmComponent(fakeWindow);
-
-    sinon.stub(confirmComponent, 'cleanMessage', function(text) {
+    this.sandbox.stub(confirmComponent, 'cleanMessage', function(text) {
       return text;
     });
   });
+
 
   describe('#getModalContent', function() {
     var testCases = [
@@ -73,10 +71,10 @@ describe('Confirm Component', function() {
 
   describe('#getButtomHtml', function() {
     beforeEach(function() {
-      fakeWindow = require('../../mocks/fake_window').create();
+      fakeWindow = require('../../mocks/fake_window').create(this.sandbox);
       confirmComponent = new ConfirmComponent(fakeWindow);
 
-      sinon.stub(confirmComponent, 'cleanMessage', function(text) {
+      this.sandbox.stub(confirmComponent, 'cleanMessage', function(text) {
         return text;
       });
     });

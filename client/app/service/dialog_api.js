@@ -61,7 +61,7 @@ class DialogApi extends IntegrationApi {
     this.getConfirmComponent(options).render();
 
     if (options.source.integration_id === 'SUITE') {
-      this.deferreds[options.dialogId] = this.window.$.Deferred();
+      this.deferreds[options.dialogId] = this.window.$.Deferred(); // eslint-disable-line new-cap
       return this.deferreds[options.dialogId].promise();
     }
   }
@@ -73,7 +73,7 @@ class DialogApi extends IntegrationApi {
   confirmNavigation(url, confirmOptions) {
     var confirmPromise = this.confirm(confirmOptions);
 
-    confirmPromise.then(() => {
+    confirmPromise.done(() => {
       this.window.$(this.window).off('beforeunload');
       this.window.location.href = url;
     }).fail(() => {

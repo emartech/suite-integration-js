@@ -1,6 +1,6 @@
 'use strict';
-
-var sinon = require('sinon');
+const FakeWindow = require('../mocks/fake_window');
+const MessageHandler = require('./alert');
 
 describe('Alert Handler', function() {
 
@@ -8,8 +8,8 @@ describe('Alert Handler', function() {
   var messageHandler;
 
   beforeEach(function() {
-    fakeWindow = require('../mocks/fake_window').create();
-    messageHandler = require('./alert').create(fakeWindow);
+    fakeWindow = FakeWindow.create(this.sandbox);
+    messageHandler = new MessageHandler(fakeWindow);
   });
 
   it('should listen to messages with event "alert"', function() {
@@ -69,7 +69,7 @@ describe('Alert Handler', function() {
 
   describe('#getHtml', function() {
     beforeEach(function() {
-      sinon.stub(messageHandler, 'cleanMessage', function(text) {
+      this.sandbox.stub(messageHandler, 'cleanMessage', function(text) {
         return text;
       });
     });

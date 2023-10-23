@@ -10,6 +10,10 @@ class IntegrationApi {
   }
 
   get params() {
+    return this._getParams();
+  }
+
+  _getParams() {
     if (document.getElementsByTagName('e-modal').length) {
       return JSON.parse(document.getElementsByTagName('e-modal')[0].getAttribute('data-params'));
     } else if (document.body.hasAttribute('data-params')) {

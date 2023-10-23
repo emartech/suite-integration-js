@@ -1,6 +1,5 @@
 'use strict';
 
-var sinon = require('sinon');
 var Q = require('q');
 
 describe('DialogApi', function() {
@@ -9,7 +8,7 @@ describe('DialogApi', function() {
   var dialogApi;
 
   beforeEach(function() {
-    fakeWindow = require('../mocks/fake_window').create();
+    fakeWindow = require('../mocks/fake_window').create(this.sandbox);
     dialogApi = require('./dialog_api').create(fakeWindow);
   });
 
@@ -21,19 +20,15 @@ describe('DialogApi', function() {
 
     beforeEach(function() {
       fakeWindow.SUITE.integration = {
-        messageToService: sinon.stub()
+        messageToService: this.sandbox.stub()
       };
 
-      sinon.stub(dialogApi, 'params', {
-        get: function() {
-          return {
-            dialogId: fakeDialogId,
-            openerIntegrationInstanceId: 'bar'
-          };
-        }
+      this.sandbox.stub(dialogApi, '_getParams').returns({
+        dialogId: fakeDialogId,
+        openerIntegrationInstanceId: 'bar'
       });
 
-      sinon.stub(dialogApi, 'generateMessage').returns(fakeMessage);
+      this.sandbox.stub(dialogApi, 'generateMessage').returns(fakeMessage);
     });
 
     it('should generate a message', function() {
@@ -51,8 +46,8 @@ describe('DialogApi', function() {
     describe('submitting to suite', function() {
       beforeEach(function() {
         dialogApi.deferreds[fakeDialogId] = Q.defer();
-        sinon.stub(dialogApi.deferreds[fakeDialogId], 'reject');
-        sinon.stub(dialogApi.deferreds[fakeDialogId], 'resolve');
+        this.sandbox.stub(dialogApi.deferreds[fakeDialogId], 'reject');
+        this.sandbox.stub(dialogApi.deferreds[fakeDialogId], 'resolve');
       });
 
       it('should send message when resolving the promise', function() {
@@ -70,7 +65,7 @@ describe('DialogApi', function() {
   describe('#close', function() {
     beforeEach(function() {
       fakeWindow.SUITE.integration = {
-        messageToSuite: sinon.stub()
+        messageToSuite: this.sandbox.stub()
       };
     });
 
@@ -85,16 +80,12 @@ describe('DialogApi', function() {
   describe('#generateMessage', function() {
     beforeEach(function() {
       fakeWindow.SUITE.integration = {
-        messageToService: sinon.stub()
+        messageToService: this.sandbox.stub()
       };
 
-      sinon.stub(dialogApi, 'params', {
-        get: function() {
-          return {
-            dialogId: 'foo',
-            openerIntegrationInstanceId: 'bar'
-          };
-        }
+      this.sandbox.stub(dialogApi, '_getParams').returns({
+        dialogId: 'foo',
+        openerIntegrationInstanceId: 'bar'
       });
     });
 
@@ -145,7 +136,7 @@ describe('DialogApi', function() {
 
     describe('with confirmParams', function() {
       it('should also append options from the beginning', function() {
-        dialogApi.confirmParams['foo'] = {
+        dialogApi.confirmParams.foo = {
           test: 'option-value'
         };
         var message = dialogApi.generateMessage(true, {
@@ -163,18 +154,21 @@ describe('DialogApi', function() {
   });
 
   describe('#confirm', function() {
-    var confirmOptions = {
-      optional: false,
-      source: {
-        integration_id: 'SUITE'
-      }
-    };
-    var fakeConfirmComponent = {
-      render: sinon.stub()
-    };
+    var confirmOptions;
+    var fakeConfirmComponent;
 
     beforeEach(function() {
-      dialogApi.getConfirmComponent = sinon.stub().returns(fakeConfirmComponent);
+      confirmOptions = {
+        optional: false,
+        source: {
+          integration_id: 'SUITE'
+        }
+      };
+      fakeConfirmComponent = {
+        render: this.sandbox.stub()
+      };
+
+      dialogApi.getConfirmComponent = this.sandbox.stub().returns(fakeConfirmComponent);
     });
 
     it('should create a confirm dialog', function() {
@@ -195,8 +189,8 @@ describe('DialogApi', function() {
     };
 
     beforeEach(function() {
-      dialogApi.confirm = sinon.stub().returns(fakeWindow.resolved());
-      dialogApi.close = sinon.stub();
+      dialogApi.confirm = this.sandbox.stub().returns(fakeWindow.resolved());
+      dialogApi.close = this.sandbox.stub();
     });
 
     it('should call confirm() with options passed', function(done) {
@@ -215,7 +209,7 @@ describe('DialogApi', function() {
 
     it('should not change location when the confirm promise is rejected', function(done) {
       var originalLocation = fakeWindow.location.href;
-      dialogApi.confirm = sinon.stub().returns(fakeWindow.rejected());
+      dialogApi.confirm = this.sandbox.stub().returns(fakeWindow.rejected());
 
       dialogApi.confirmNavigation(fakeUrl, fakeConfirmOptions).fail(() => {
         expect(fakeWindow.location.href).to.eql(originalLocation);
@@ -224,7 +218,7 @@ describe('DialogApi', function() {
     });
 
     it('should close the confirm dialog at the end', function(done) {
-      dialogApi.confirm = sinon.stub().returns(fakeWindow.rejected());
+      dialogApi.confirm = this.sandbox.stub().returns(fakeWindow.rejected());
 
       dialogApi.confirmNavigation(fakeUrl, fakeConfirmOptions).fail(() => {
         expect(dialogApi.close).to.be.called;

@@ -1,7 +1,5 @@
 'use strict';
 
-var sinon = require('sinon');
-
 describe('Integration', function() {
 
   var fakeWindow;
@@ -9,7 +7,7 @@ describe('Integration', function() {
   var refreshHandler;
 
   beforeEach(function() {
-    fakeWindow = require('./mocks/fake_window').create();
+    fakeWindow = require('./mocks/fake_window').create(this.sandbox);
     alertHandler = require('./message_handler/alert').create(fakeWindow);
     refreshHandler = require('./message_handler/refresh').create(fakeWindow);
   });
@@ -21,7 +19,7 @@ describe('Integration', function() {
       }
     };
 
-    sinon.stub(alertHandler, 'handleMessage');
+    this.sandbox.stub(alertHandler, 'handleMessage');
     fakeWindow.trigger('message', eventData);
 
     expect(alertHandler.handleMessage).to.have.been.calledWith(eventData.data);
@@ -34,8 +32,8 @@ describe('Integration', function() {
       }
     };
 
-    sinon.stub(alertHandler, 'handleMessage');
-    sinon.stub(refreshHandler, 'handleMessage');
+    this.sandbox.stub(alertHandler, 'handleMessage');
+    this.sandbox.stub(refreshHandler, 'handleMessage');
     fakeWindow.trigger('message', eventData);
 
     expect(refreshHandler.handleMessage).to.have.callCount(0);

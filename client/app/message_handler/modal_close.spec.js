@@ -6,7 +6,7 @@ describe('Modal:Close Handler', function() {
   var messageHandler;
 
   beforeEach(function() {
-    fakeWindow = require('../mocks/fake_window').create();
+    fakeWindow = require('../mocks/fake_window').create(this.sandbox);
     messageHandler = require('./modal_close').create(fakeWindow);
   });
 
