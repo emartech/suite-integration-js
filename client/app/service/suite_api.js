@@ -1,6 +1,8 @@
 'use strict';
 
 var IntegrationApi = require('./integration_api');
+var Logger = require('../logger');
+
 
 class SuiteApi extends IntegrationApi {
 
@@ -11,10 +13,12 @@ class SuiteApi extends IntegrationApi {
 
   messageToService(message, targetInstanceId) {
     this.window.$('#integration-' + targetInstanceId)[0].contentWindow.postMessage(message, '*');
+    Logger.sendLog(`SuiteApi messageToService ${message.event}`);
   }
 
   messageToSuite(message) {
     this.window.postMessage(this.setMessageSource(message), '*');
+    Logger.sendLog(`SuiteApi messageToSuite ${message.event}`);
   }
 
   static create(global) {

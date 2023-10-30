@@ -4,6 +4,7 @@ var extend = require('extend');
 var IntegrationApi = require('./integration_api');
 var ConfirmComponent = require('./components/confirm');
 var ModalComponent = require('./components/modal');
+const Logger = require('../logger');
 
 class DialogApi extends IntegrationApi {
 
@@ -50,6 +51,8 @@ class DialogApi extends IntegrationApi {
   }
 
   confirm(options) {
+    Logger.sendLog('DialogApi confirm');
+
     if (!options.dialogId) {
       options.dialogId = Math.floor(Math.random() * 10000000);
     }
@@ -84,6 +87,7 @@ class DialogApi extends IntegrationApi {
   }
 
   modal(options) {
+    Logger.sendLog('DialogApi modal');
     new ModalComponent(this.window, options).render();
   }
 
