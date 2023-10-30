@@ -2,6 +2,7 @@
 
 var ServiceApi = require('./service/service_api');
 var DialogApi = require('./service/dialog_api');
+var Logger = require('./logger');
 
 (function(global) {
 
@@ -9,4 +10,5 @@ var DialogApi = require('./service/dialog_api');
   global.SUITE.integration = ServiceApi.create(global);
   global.SUITE.integration.dialog = DialogApi.create(global);
 
+  Logger.sendLog('serviceJs loaded');
 })(window);

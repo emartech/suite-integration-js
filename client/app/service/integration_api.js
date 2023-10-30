@@ -1,5 +1,7 @@
 'use strict';
 
+const Logger = require('../logger');
+
 class IntegrationApi {
 
   constructor(window) {
@@ -27,6 +29,10 @@ class IntegrationApi {
   }
 
   setMessageSource(message) {
+    if (message.event) {
+      Logger.sendLog(`setMessageSource-${message.event}`);
+    }
+
     message.source = {
       integration_id: this.params.integrationId,
       integration_instance_id: this.params.integrationInstanceId
