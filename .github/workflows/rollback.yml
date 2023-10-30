@@ -1,0 +1,30 @@
+name: Rollback SIJS
+on:
+  workflow_dispatch:
+    inputs:
+      target:
+        type: choice
+        required: true
+        default: 'staging'
+        description: Target enviroment to rollback process
+        options:
+        - staging
+        - production
+env:
+  REDIRECTOR_API_SECRET_STAGING: ${{ secrets.REDIRECTOR_API_SECRET_STAGING }}
+  REDIRECTOR_API_SECRET_PRODUCTION: ${{ secrets.REDIRECTOR_API_SECRET_PRODUCTION }}
+
+jobs:
+  rollback:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - name: Rollback
+        run: node .github/scripts/rollback.js
