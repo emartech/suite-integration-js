@@ -8,6 +8,7 @@
     "lodash": "4.17.21"
   },
   "devDependencies": {
+    "@emartech/client-publish": "9.5.0",
     "babel-core": "6.26.3",
     "babel-loader": "6.2.4",
     "babel-polyfill": "6.8.0",
@@ -28,8 +29,8 @@
     "q": "1.4.1",
     "run-sequence": "^1.1.2",
     "sinon-chai": "^2.8.0",
-    "yargs": "4.7.0",
-    "webpack": "1.13.2"
+    "webpack": "1.13.2",
+    "yargs": "4.7.0"
   },
   "scripts": {
     "test": "gulp test",
