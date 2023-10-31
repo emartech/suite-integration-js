@@ -8,7 +8,7 @@
     "lodash": "4.17.21"
   },
   "devDependencies": {
-    "@emartech/client-publish": "9.5.0",
+    "@emartech/client-publish": "8.0.0",
     "babel-core": "6.26.3",
     "babel-loader": "6.2.4",
     "babel-polyfill": "6.8.0",
