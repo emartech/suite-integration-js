@@ -3,22 +3,14 @@ const https = require('https')
 const isProduction = process.env.TARGET === 'production';
 const redirectorSecret = isProduction ? process.env.REDIRECTOR_API_SECRET_PRODUCTION : process.env.REDIRECTOR_API_SECRET_STAGING;
 
-async function rollbackWorkflow() {
-  try {
-    const targetRevision =  callRedirectorService()
-    resolve(`Rollback was succesful, new revision is ${targetRevision}`)
-  } catch (error) {
-    reject(error)
-  }
-}
 
-function callRedirectorService() {
-  const stageRevision = isProduction ? '1463645083' : '1463645490';
+function rollbackWorkflow() {
+  const targetRevision = isProduction ? '1463645083' : '1463645490';
   const targetURL = isProduction ? 'sijs.static.emarsys.net' : 'sijs-staging.static.emarsys.com';
   const dataJson = JSON.stringify({
     name: 'sijs',
     revision: 'latest',
-    target: `${targetURL}/${stageRevision}`
+    target: `${targetURL}/${targetRevision}`
   })
 
   const redirectorRequestOption = {
@@ -35,7 +27,7 @@ function callRedirectorService() {
   return new Promise((resolve, reject) => {
     const request = https.request(redirectorRequestOption, (res) => {
       if (res.statusCode >= 200 && res.statusCode <= 299) {
-        resolve()
+        resolve(`Rollback was succesful on ${process.env.TARGET}, new revision is ${targetRevision}`)
       } else {
         reject(new Error(`Redirector Request failed. ${res.statusMessage}`))
       }
