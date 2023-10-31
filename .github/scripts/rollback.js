@@ -18,7 +18,7 @@ function callRedirectorService() {
   const dataJson = JSON.stringify({
     name: 'sijs',
     revision: 'latest',
-    target: `${targetURL}/sijs/${stageRevision}`
+    target: `${targetURL}/${stageRevision}`
   })
 
   const redirectorRequestOption = {
