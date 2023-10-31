@@ -60,3 +60,5 @@ jobs:
         run: |
           npm run build:staging
           npm run deploy:staging
+        env:
+          REDIRECTOR_TARGET: 'sijs-staging.static.emarsys.com'
