@@ -32,7 +32,10 @@
     "webpack": "1.13.2"
   },
   "scripts": {
-    "test": "gulp test"
+    "test": "gulp test",
+    "build:staging": "gulp build --staging",
+    "build:production": "gulp build --production",
+    "deploy:staging": "client-publish d -e staging"
   },
   "repository": {
     "type": "git",
