@@ -36,7 +36,8 @@
     "test": "gulp test",
     "build:staging": "gulp build --staging",
     "build:production": "gulp build --production",
-    "deploy:staging": "client-publish d -e staging"
+    "deploy:staging": "client-publish d -e staging",
+    "deploy:production": "client-publish d -e production"
   },
   "repository": {
     "type": "git",

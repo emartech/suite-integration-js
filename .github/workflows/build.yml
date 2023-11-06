@@ -11,7 +11,6 @@ env:
   REDIRECTOR_API_SECRET_PRODUCTION: ${{ secrets.REDIRECTOR_API_SECRET_PRODUCTION }}
   REDIRECTOR_DEPLOY: true
   REDIRECTOR_NAME: sijs
-  S3_BUCKET: ems-suite-integration-js-staging
 
 jobs:
   test:
@@ -62,3 +61,12 @@ jobs:
           npm run deploy:staging
         env:
           REDIRECTOR_TARGET: 'sijs-staging.static.emarsys.com'
+          S3_BUCKET: ems-suite-integration-js-staging
+      - name: Deploy to production
+        if: github.ref_name == 'production'
+        run: |
+          npm run build:production
+          npm run deploy:production
+        env:
+          REDIRECTOR_TARGET: 'sijs.static.emarsys.net'
+          S3_BUCKET: ems-suite-integration-js
