@@ -1,6 +1,7 @@
 'use strict';
 
 var IntegrationApi = require('./integration_api');
+var Logger = require('../logger');
 
 class ServiceApi extends IntegrationApi {
 
@@ -9,6 +10,11 @@ class ServiceApi extends IntegrationApi {
   }
 
   messageToSuite(message) {
+
+    if (message.event) {
+      Logger.sendLog(`ServiceApi messageToSuite-${message.event}`);
+    }
+
     this.window.parent.postMessage(this.setMessageSource(message), '*');
   }
 

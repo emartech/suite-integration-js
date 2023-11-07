@@ -7,7 +7,7 @@ describe('Enable Handler', function() {
   var fakeSelection = 'fake_selection';
 
   beforeEach(function() {
-    fakeWindow = require('../mocks/fake_window').create();
+    fakeWindow = require('../mocks/fake_window').create(this.sandbox);
     messageHandler = require('./enable').create(fakeWindow);
   });
 

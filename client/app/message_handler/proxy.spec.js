@@ -1,16 +1,12 @@
 'use strict';
 
-var sinon = require('sinon');
-
 describe('Proxy Handler', function() {
 
   var fakeWindow;
-  var fakeIframe;
   var messageHandler;
 
   beforeEach(function() {
-    fakeWindow = require('../mocks/fake_window').create();
-    fakeIframe = require('../mocks/fake_iframe').create();
+    fakeWindow = require('../mocks/fake_window').create(this.sandbox);
     messageHandler = require('./proxy').create(fakeWindow);
   });
 
@@ -28,7 +24,7 @@ describe('Proxy Handler', function() {
 
     beforeEach(function() {
       messageHandler.window.SUITE.integration = {
-        messageToService: sinon.stub()
+        messageToService: this.sandbox.stub()
       };
     });
 
@@ -39,5 +35,4 @@ describe('Proxy Handler', function() {
         message.integrationInstanceId);
     });
   });
-
 });

@@ -4,6 +4,7 @@ var extend = require('extend');
 var IntegrationApi = require('./integration_api');
 var ConfirmComponent = require('./components/confirm');
 var ModalComponent = require('./components/modal');
+const Logger = require('../logger');
 
 class DialogApi extends IntegrationApi {
 
@@ -50,6 +51,8 @@ class DialogApi extends IntegrationApi {
   }
 
   confirm(options) {
+    Logger.sendLog('DialogApi confirm');
+
     if (!options.dialogId) {
       options.dialogId = Math.floor(Math.random() * 10000000);
     }
@@ -61,7 +64,7 @@ class DialogApi extends IntegrationApi {
     this.getConfirmComponent(options).render();
 
     if (options.source.integration_id === 'SUITE') {
-      this.deferreds[options.dialogId] = this.window.$.Deferred();
+      this.deferreds[options.dialogId] = this.window.$.Deferred(); // eslint-disable-line new-cap
       return this.deferreds[options.dialogId].promise();
     }
   }
@@ -73,7 +76,7 @@ class DialogApi extends IntegrationApi {
   confirmNavigation(url, confirmOptions) {
     var confirmPromise = this.confirm(confirmOptions);
 
-    confirmPromise.then(() => {
+    confirmPromise.done(() => {
       this.window.$(this.window).off('beforeunload');
       this.window.location.href = url;
     }).fail(() => {
@@ -84,6 +87,7 @@ class DialogApi extends IntegrationApi {
   }
 
   modal(options) {
+    Logger.sendLog('DialogApi modal');
     new ModalComponent(this.window, options).render();
   }
 

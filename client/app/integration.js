@@ -1,4 +1,5 @@
 'use strict';
+const Logger = require('./logger');
 
 var SuiteApi = require('./service/suite_api');
 var DialogApi = require('./service/dialog_api');
@@ -21,4 +22,5 @@ var DialogApi = require('./service/dialog_api');
   require('./message_handler/unload_init').create(global);
   require('./message_handler/unload_reset').create(global);
 
+  Logger.sendLog('integrationJs loaded');
 })(window);

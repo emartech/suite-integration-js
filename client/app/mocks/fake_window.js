@@ -1,21 +1,20 @@
 'use strict';
 
-var sinon = require('sinon');
-var fakeJQuery = require('./fake_jquery');
-var jquery = require('jquery');
+const FakeJQuery = require('./fake_jquery');
+const jquery = require('jquery');
 
 class FakeWindow {
-  constructor() {
+  constructor(sandbox) {
     this.listeners = {};
 
     this.location = {
       host: 'mocked.tld',
       pathname: 'mocked',
-      reload: sinon.stub()
+      reload: sandbox.stub()
     };
 
     this.document = {
-      getElementById: sinon.stub().returns('fake_element')
+      getElementById: sandbox.stub().returns('fake_element')
     };
 
     this.SUITE = {
@@ -27,19 +26,30 @@ class FakeWindow {
           initialized: false
         },
         dialog: {
-          modal: sinon.stub(),
-          close: sinon.stub()
+          modal: sandbox.stub(),
+          close: sandbox.stub()
         }
       }
     };
 
-    this.postMessage = sinon.stub();
+    this.postMessage = sandbox.stub();
 
     this.parent = {
-      postMessage: sinon.stub()
+      postMessage: sandbox.stub()
     };
 
-    this.$ = fakeJQuery.create();
+    this.analytics = {
+      request: sandbox.stub()
+    };
+
+    this.e = {
+      utils: {
+        getFlipperService: sandbox.stub(),
+        openNotification: sandbox.stub()
+      }
+    };
+
+    this.$ = FakeJQuery.create(sandbox);
   }
 
   addEventListener(type, callback) {
@@ -61,19 +71,19 @@ class FakeWindow {
   }
 
   resolved(data) {
-    var deferred = jquery.Deferred();
+    let deferred = jquery.Deferred(); // eslint-disable-line new-cap
     deferred.resolve(data);
     return deferred.promise();
   }
 
   rejected(data) {
-    var deferred = jquery.Deferred();
+    let deferred = jquery.Deferred(); // eslint-disable-line new-cap
     deferred.reject(data);
     return deferred.promise();
   }
 
-  static create() {
-    return new FakeWindow();
+  static create(sandbox) {
+    return new FakeWindow(sandbox);
   }
 }
 

@@ -1,5 +1,6 @@
 'use strict';
 
+const Logger = require('../logger');
 class AbstractMessageHandler {
 
   constructor(global) {
@@ -12,6 +13,7 @@ class AbstractMessageHandler {
       }
 
       if (message.event === this.MESSAGE_EVENT) {
+        Logger.sendLog(`messageHandler-${message}`);
         this.handleMessage(message);
       }
     });

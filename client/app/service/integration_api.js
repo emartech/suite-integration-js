@@ -1,5 +1,7 @@
 'use strict';
 
+const Logger = require('../logger');
+
 class IntegrationApi {
 
   constructor(window) {
@@ -10,6 +12,10 @@ class IntegrationApi {
   }
 
   get params() {
+    return this._getParams();
+  }
+
+  _getParams() {
     if (document.getElementsByTagName('e-modal').length) {
       return JSON.parse(document.getElementsByTagName('e-modal')[0].getAttribute('data-params'));
     } else if (document.body.hasAttribute('data-params')) {
@@ -23,6 +29,10 @@ class IntegrationApi {
   }
 
   setMessageSource(message) {
+    if (message.event) {
+      Logger.sendLog(`setMessageSource-${message.event}`);
+    }
+
     message.source = {
       integration_id: this.params.integrationId,
       integration_instance_id: this.params.integrationInstanceId

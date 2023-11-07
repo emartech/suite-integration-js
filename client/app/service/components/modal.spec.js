@@ -8,7 +8,7 @@ describe('Modal Component', function() {
   var modalComponent;
 
   beforeEach(function() {
-    fakeWindow = require('../../mocks/fake_window').create();
+    fakeWindow = require('../../mocks/fake_window').create(this.sandbox);
     modalComponent = new ModalComponent(fakeWindow);
   });
 
