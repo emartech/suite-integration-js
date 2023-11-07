@@ -28,3 +28,5 @@ jobs:
 
       - name: Rollback
         run: node .github/scripts/rollback.js
+        env:
+          TARGET: ${{ inputs.target  }}
