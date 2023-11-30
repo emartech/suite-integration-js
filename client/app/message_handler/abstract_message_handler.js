@@ -13,7 +13,7 @@ class AbstractMessageHandler {
       }
 
       if (message.event === this.MESSAGE_EVENT) {
-        Logger.sendLog(`messageHandler-${message}`);
+        Logger.sendLog(`messageHandler-${message.event}`);
         this.handleMessage(message);
       }
     });
